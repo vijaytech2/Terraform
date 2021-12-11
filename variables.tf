@@ -1,10 +1,10 @@
 variable "region" {
   default = "us-east-1"
 }
-variable "AMILinux" {
+variable "linuxami" {
   type = "map"
     default = {
-	 us-east-1 = "ami-0b69ea66ff7391e80"
+	 us-east-1 = "ami-04902260ca3d33422"
 	 }
 }
 
@@ -21,7 +21,7 @@ variable "subnet-private-AZ-CIDR" {
   description = "Create a private subnet"
 }
 variable "key_name" {
-  default = "virginia"
+  default = "demowithvenkat"
   description = "allow ssh using this key"
 }
  
