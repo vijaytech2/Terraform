@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "my-terraform-ec2" {
-  ami = "${var.linuxami}"
+  ami = "${var.ami}"
   instance_type = "t2.micro"
   key_name = "${var.key_name}"
 }

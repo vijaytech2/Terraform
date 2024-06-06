@@ -1,10 +1,8 @@
 variable "region" {
   default = "us-east-1"
 }
-variable "linuxami" {
-    default = {
-	 us-east-1 = "ami-00beae93a2d981137"
-	 }
+variable "ami" {
+   default = "ami-00beae93a2d981137"
 }
 
 variable "vpc_custom" {
