@@ -18,7 +18,7 @@ variable "subnet-private-AZ-CIDR" {
   description = "Create a private subnet"
 }
 variable "key_name" {
-  default = "demowithvenkat"
+  default = "vijay.pem"
   description = "allow ssh using this key"
 }
  
