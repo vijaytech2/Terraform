@@ -9,20 +9,10 @@ pipeline {
     }
 
    agent  any
-    stages {
+   stages {
         stage('Checkout') {
             steps {
-<<<<<<< HEAD
                 git branch: 'main', url: 'https://github.com/vijaytech2/Terraform.git'
-=======
-                 script{
-                        dir("terraform")
-                        {
-                            git "https://${my_first_token}@github.com/vijaytech2/Terraform.git"
-                        }
-                    }
-                }
->>>>>>> e29675c932c781e47bca54d5d9301a32e2d100f3
             }
         }
         stage('Terraform init') {
@@ -56,9 +46,5 @@ pipeline {
             }
         }
 
-<<<<<<< HEAD
     }
 }
-=======
-  }
->>>>>>> e29675c932c781e47bca54d5d9301a32e2d100f3
