@@ -37,12 +37,12 @@ pipeline {
             }
         }
 	    
-        stage('terraform  action') {
+        stage('Terraform Apply') {
             steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} --auto-approve')
+                script {
+                    sh 'terraform apply -auto-approve tfplan'
+                }
             }
-        }
     }
     
 }
