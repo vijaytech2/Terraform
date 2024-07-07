@@ -1,6 +1,6 @@
-resource "aws_security_group" "publicEC2Security" {
+resource "aws_security_group" "public_sg" {
   vpc_id = aws_vpc.production-vpc.id
-  name   = "PublicSecurityGroup"
+  name   = "public-sg"
 
   dynamic "ingress" {
     for_each = var.sgPortsPublic
@@ -20,8 +20,8 @@ resource "aws_security_group" "publicEC2Security" {
   }
 }
 
-resource "aws_security_group" "albSecurityGroup" {
-  name   = "albSecurityGruop"
+resource "aws_security_group" "alb_sg" {
+  name   = "alb-sg"
   vpc_id = aws_vpc.production-vpc.id
   ingress {
     from_port   = 80
