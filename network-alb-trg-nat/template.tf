@@ -8,7 +8,7 @@ resource "aws_launch_template" "mytemplate" {
       volume_size = 20
     }
   }
-  image_id = "ami-041feb57c611358bd"
+  image_id = var.ami
   instance_type = var.INSTANCE_TYPE
   key_name = "terraform_keypair"
   vpc_security_group_ids = [aws_security_group.alb_sg.id]
@@ -31,8 +31,7 @@ resource "aws_launch_template" "mytemplate" {
     sudo systemctl enable httpd
     cd /var/www/html
     echo "Hello Vijay !!, I am just coming from $(hostname -f)" > index.html
-    echo $(curl http://169.254.169.254/latest/meta-data/local-ipv4) >> index.html
-    EC2_AVAIL_ZONE=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+
     
   EOF
   )

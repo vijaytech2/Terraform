@@ -6,11 +6,18 @@ resource "aws_vpc" "production-vpc" {
     Name = "Production-VPC"
   }
 }
+resource "aws_internet_gateway" "production-igw" {
+  vpc_id = aws_vpc.production-vpc.id
+
+  tags =  {
+    Name = "Production-IGW"
+  }
+}
 
 resource "aws_subnet" "public-subnet" {
   cidr_block        = var.public_subnet_cidr
   vpc_id            = aws_vpc.production-vpc.id
-  availability_zone = "us-east-1a"
+  availability_zone = "ap-south-1a"
   map_public_ip_on_launch = true
   tags = {
     Name = "Public-Subnet-1"
@@ -20,7 +27,7 @@ resource "aws_subnet" "public-subnet" {
 resource "aws_subnet" "public-subnet-1b" {
   cidr_block        = var.public_subnet_cidr_1b
   vpc_id            = aws_vpc.production-vpc.id
-  availability_zone = "us-east-1b"
+  availability_zone = "ap-south-1b"
   map_public_ip_on_launch = true
   tags = {
     Name = "Public-Subnet-1b"
@@ -30,7 +37,7 @@ resource "aws_subnet" "public-subnet-1b" {
 resource "aws_subnet" "private-subnet" {
   cidr_block        = var.private_subnet_cidr
   vpc_id            = aws_vpc.production-vpc.id
-  availability_zone = "us-east-1a"
+  availability_zone = "ap-south-1a"
 
   tags =  {
     Name = "Private-Subnet-1"
@@ -40,7 +47,7 @@ resource "aws_subnet" "private-subnet" {
 resource "aws_subnet" "private-subnet-1b" {
   cidr_block        = var.private_subnet_cidr_1b
   vpc_id            = aws_vpc.production-vpc.id
-  availability_zone = "us-east-1b"
+  availability_zone = "ap-south-1b"
 
   tags =  {
     Name = "Private-Subnet-1b"
@@ -73,38 +80,30 @@ resource "aws_route_table_association" "private-subnet-association" {
   subnet_id       = aws_subnet.private-subnet.id
 }
 
-resource "aws_eip" "elastic-ip-for-nat-gw" {
-  domain                      = "vpc"
-  associate_with_private_ip = "10.0.0.5" #public_subnet_cidr  = "10.0.1.0/24"
+# resource "aws_eip" "elastic-ip-for-nat-gw" {
+#   domain                      = "vpc"
+#   associate_with_private_ip = "10.0.0.5" #public_subnet_cidr  = "10.0.1.0/24"
 
-  tags =  {
-    Name = "Production-EIP"
-  }
-}
+#   tags =  {
+#     Name = "Production-EIP"
+#   }
+# }
 
-resource "aws_nat_gateway" "nat-gw" {
-  allocation_id = aws_eip.elastic-ip-for-nat-gw.id
-  subnet_id     = aws_subnet.public-subnet.id
+# resource "aws_nat_gateway" "nat-gw" {
+#   allocation_id = aws_eip.elastic-ip-for-nat-gw.id
+#   subnet_id     = aws_subnet.public-subnet.id
 
-  tags =  {
-    Name = "Production-NAT-GW"
-  }
-  depends_on = [aws_eip.elastic-ip-for-nat-gw]
-}
+#   tags =  {
+#     Name = "Production-NAT-GW"
+#   }
+#   depends_on = [aws_eip.elastic-ip-for-nat-gw]
+# }
 
-resource "aws_route" "nat-gw-route" {
-  route_table_id          = aws_route_table.private-route-table.id
-  nat_gateway_id          = aws_nat_gateway.nat-gw.id
-  destination_cidr_block  = "0.0.0.0/0"
-}
-
-resource "aws_internet_gateway" "production-igw" {
-  vpc_id = aws_vpc.production-vpc.id
-
-  tags =  {
-    Name = "Production-IGW"
-  }
-}
+# resource "aws_route" "nat-gw-route" {
+#   route_table_id          = aws_route_table.private-route-table.id
+#   nat_gateway_id          = aws_nat_gateway.nat-gw.id
+#   destination_cidr_block  = "0.0.0.0/0"
+# }
 
 resource "aws_route" "public-internet-gw-route" {
   route_table_id          = aws_route_table.public-route-table.id

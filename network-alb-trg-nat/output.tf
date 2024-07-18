@@ -7,3 +7,4 @@ output "vpcid" {
 output "public-subnet" {
   value = aws_subnet.public-subnet.id
 }
+

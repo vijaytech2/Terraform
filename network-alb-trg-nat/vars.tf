@@ -1,13 +1,19 @@
+# variable "ami" {
+#   type = map(string)
+#   default = {
+#     "us-east-1" = "ami-041feb57c611358bd"
+#     "eu-west-1"    = "-ami-096f43ef67d75e998"
+#     "eu-west-2"    = "-ami-0ffd774e02309201f"
+#   }
+# }
+
 variable "ami" {
-  type = map(string)
-  default = {
-    "us-east-1" = "ami-041feb57c611358bd"
-    "eu-west-1"    = "-ami-096f43ef67d75e998"
-    "eu-west-2"    = "-ami-0ffd774e02309201f"
-  }
+  default = "ami-0ec0e125bb6c6e8ec"
+  
 }
+
 variable "AWS_REGION" {
-  default = "us-east-1"
+  default = "ap-south-1"
 }
 variable "INSTANCE_TYPE" {
   default = "t2.micro"
@@ -16,12 +22,6 @@ variable "sgPortsPublic" {
   type    = list(number)
   default = [22, 80]
 }
-
-variable "subnets" {
-  type    = list(string)
-  default = ["us-east-1a", "us-east-1b", "us-east-1c"]
-}
-
 variable "terraform_keypair" {
   type = any
   default = "terraform_keypair"
@@ -52,9 +52,14 @@ variable "private_subnet_cidr_1b" {
   default = "10.0.5.0/24"
 }
 
-# variable "subnet_ids" {
+# variable "subnet_ids_public" {
 #   type = list(string)
 #   default = [ "public_subnet_cidr", "public_subnet_cidr_1b" ]
+# }
+
+# variable "subnet_ids_public" {
+#   type = list(string)
+#   default = [ "public_private_cidr", "public_private_cidr_1b" ]
 # }
 
 
