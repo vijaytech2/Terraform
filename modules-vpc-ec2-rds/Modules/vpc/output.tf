@@ -1,3 +1,6 @@
+output "vpc_id" {
+  value = aws_vpc.dev.id
+}
 output "subnet_ids" {
     value = [aws_subnet.subnet-1a.id, aws_subnet.subnet-1b.id]
   

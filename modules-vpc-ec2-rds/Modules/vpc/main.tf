@@ -15,6 +15,7 @@ resource "aws_internet_gateway" "igw_dev" {
 
 resource "aws_subnet" "subnet-1a" {
     vpc_id = aws_vpc.dev.id
+    availability_zone = var.az1
     cidr_block = var.subnet-1a
     # name = "subnet-1a"
     tags = {
@@ -25,6 +26,7 @@ resource "aws_subnet" "subnet-1a" {
 
 resource "aws_subnet" "subnet-1b" {
     vpc_id = aws_vpc.dev.id
+    availability_zone = var.az2
     cidr_block = var.subnet-1b
     tags = {
       type = "prv"
